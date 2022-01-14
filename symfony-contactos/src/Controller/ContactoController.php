@@ -17,7 +17,7 @@ class ContactoController extends AbstractController
     ];     
 
     /**
-     * @Route("/contacto/{codigo<\d+>?1}", name="ficha_contacto")
+     * @Route("/contacto/{codigo}", name="ficha_contacto")
      */
     public function ficha($codigo): Response{
         //Si no existe el elemento con dicha clave devolvemos null
@@ -53,7 +53,7 @@ class ContactoController extends AbstractController
                 $html .= "<li>" . $resultado['telefono'] . "</li>";
                 $html .= "<li>" . $resultado['email'] . "</li>";
             }
-            $html .= "</ul>"; 
+            $html .= "</ul>";
             return new Response("<html><body>$html</body>");
         }else
             return new Response("<html><body>No se ha encontrado ningún contacto</body>");
