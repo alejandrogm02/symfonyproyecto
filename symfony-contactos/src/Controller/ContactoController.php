@@ -53,7 +53,7 @@ class ContactoController extends AbstractController
                 $html .= "<li>" . $resultado['telefono'] . "</li>";
                 $html .= "<li>" . $resultado['email'] . "</li>";
             }
-            $html .= "</ul>";
+            $html .= "</ul>"; 
             return new Response("<html><body>$html</body>");
         }else
             return new Response("<html><body>No se ha encontrado ningún contacto</body>");
