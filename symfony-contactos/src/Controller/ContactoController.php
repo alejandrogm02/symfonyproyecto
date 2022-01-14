@@ -17,7 +17,7 @@ class ContactoController extends AbstractController
     ];     
 
     /**
-     * @Route("/contacto/{codigo}", name="ficha_contacto")
+     * @Route("/contacto/{codigo<\d+>?1}", name="ficha_contacto")
      */
     public function ficha($codigo): Response{
         //Si no existe el elemento con dicha clave devolvemos null
@@ -33,5 +33,29 @@ class ContactoController extends AbstractController
             return new Response("<html><body>$html</body>");
         }else
             return new Response("<html><body>Contaco $codigo no encontrado</body>");
+    }
+
+    /**
+     * @Route("/contacto/buscar/{texto}", name="buscar_contacto")
+     */
+    public function buscar($texto): Response{
+        //Filtramos aquellos que contengan dicho texto en el nombre
+        $resultados = array_filter($this->contactos,
+            function ($contacto) use ($texto){
+                return strpos($contacto["nombre"], $texto) !== FALSE;
+            }    
+        );
+        if (count($resultados)){
+            $html = "<ul>";
+            foreach($resultados as $id => $resultado){
+                $html .= "<li>" . $id . "</li>";
+                $html .= "<li>" . $resultado['nombre'] . "</li>";
+                $html .= "<li>" . $resultado['telefono'] . "</li>";
+                $html .= "<li>" . $resultado['email'] . "</li>";
+            }
+            $html .= "</ul>";
+            return new Response("<html><body>$html</body>");
+        }else
+            return new Response("<html><body>No se ha encontrado ningún contacto</body>");
     }
 }
