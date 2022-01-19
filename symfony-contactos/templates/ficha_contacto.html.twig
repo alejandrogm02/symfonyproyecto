@@ -4,8 +4,12 @@
 {% block body %}
     <h1>Ficha del contacto</h1>
     {% if contacto %}
-        {{ include ('partials/datos_contacto.html.twig', { 'contacto': contacto }) }}
-    {% else %}
+        <ul>
+            <li><strong>{{ contacto.nombre }}</strong></li>
+            <li><strong>Teléfono</strong>: {{ contacto.telefono }}</li>
+            <li><strong>E-mail</strong>: {{ contacto.email }}</li>
+        </ul>   
+ {% else %}
         <p>Contacto no encontrado</p>
     {% endif %}
 {% endblock %}
